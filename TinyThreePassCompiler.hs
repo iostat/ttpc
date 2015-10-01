@@ -1,6 +1,7 @@
 module TinyThreePassCompiler where
 
 import Control.Applicative ((<$>), (<$))
+import Data.Function (on)
 import Data.List (elemIndex)
 import Text.ParserCombinators.Parsec (Parser(..),
                                       parse,
@@ -77,7 +78,6 @@ pass1 code = runParse parseExpression "pass1" (pullExpression)
                   table        = [ [binaryOp "*" Mul AssocLeft, binaryOp "/" Div AssocLeft]
                                  , [binaryOp "+" Add AssocLeft, binaryOp "-" Sub AssocLeft]
                                  ]
-                  on f g       = \x y -> f (g x) (g y)
 
 -- Recurses into the AST and optimizes any operations
 -- that don't depend on any arguments
